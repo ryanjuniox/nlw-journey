@@ -1,3 +1,18 @@
+//biblioteca
+const formatador = (data) => {
+    return {
+        dia: {
+            numerico: dayjs(data).format('DD'),
+            semana:{
+                curto: dayjs(data).format('ddd'),
+                longo: dayjs(data).format('dddd'),
+            },
+            mes: dayjs(data).format('MMMM'),
+            hora: dayjs(data).format('HH:mm')
+        }
+    }
+}
+
 // object {}
 const atividade = {
     nome: "Almoço",
@@ -29,19 +44,28 @@ const criarItemAtividade = (atividade) => {
     }
     input = input + '>'
 
+    const formatar = formatador(atividade.data);
+
     return `
     <div>
         ${input}
         <span>${atividade.nome}</span>
-        <time>${atividade.data}</time>
+        <time>${formatar.dia.semana.longo}, dia ${formatar.dia .numerico} de ${formatar.dia.mes} ás ${formatar.dia.hora} </time>
     </div>
     `;
 };
 
+const atualizarListaDeAtividades = (atividade) => {
+    const section = document.querySelector('section')
+    
+    if(atividades.length == 0){
+        section.innerHTML = '<p>Nenhuma atividade cadastrada. </p>'
+        return
+    }
 
-const section = document.querySelector('section')
-
-for(let atividade of atividades){
-    section.innerHTML += criarItemAtividade(atividade);
+    for(let atividade of atividades){
+        section.innerHTML += criarItemAtividade(atividade);
+    }
 }
 
+atualizarListaDeAtividades();

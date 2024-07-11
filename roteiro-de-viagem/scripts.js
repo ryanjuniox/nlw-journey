@@ -58,10 +58,10 @@ const criarItemAtividade = (atividade) => {
         <span>${atividade.nome}</span>
         <time>${formatar.dia.semana.longo}, dia ${formatar.dia .numerico} de ${formatar.dia.mes} ás ${formatar.dia.hora} </time>
     </div>
-    `;
-};
+    `
+}
 
-const atualizarListaDeAtividades = (atividade) => {
+const atualizarListaDeAtividades = () => {
     const section = document.querySelector('section')
     section.innerHTML = ''
 
@@ -86,15 +86,15 @@ const salvarAtividade = (event) => {
     const data = `${dia} ${hora}`
 
     const novaAtividade = {
-        nome: nome,
-        data: data,
+        nome,
+        data,
         finalizada: false,
     }
 
-    const atividadeExiste = novaAtividade.find((atividade) => {
+    const atividadeExiste = atividades.find((atividade) => {
         return atividade.data == novaAtividade.data
     })
-
+      
     if(atividadeExiste){
         return alert('Dia/Hora não disponível!')
     }
@@ -102,7 +102,6 @@ const salvarAtividade = (event) => {
     atividades = [novaAtividade, ...atividades]
     atualizarListaDeAtividades()
 }
-salvarAtividade()
 
 const criarDiasSelecao = () => {
     const dias = [
@@ -125,15 +124,14 @@ const criarDiasSelecao = () => {
         `
     }
 
-    document.querySelector('select[name="dia"]').innerHTML = diasSelecao;
+    document.querySelector('select[name="dia"]').innerHTML = diasSelecao
 }
 criarDiasSelecao()
 
 const criarHorasSelecao = () => {
     let horasDisponiveis = ''
 
-    let i=0;
-    for(i=6; i<23; i++){
+    for(let i=6; i<23; i++){
         horasDisponiveis += `<option value="${i}:00">${i}:00</option>`
         horasDisponiveis += `<option value="${i}:30">${i}:30</option>`
     }
